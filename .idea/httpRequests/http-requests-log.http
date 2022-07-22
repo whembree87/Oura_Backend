@@ -1,0 +1,7 @@
+GET http://localhost:8080/getheartmetrics
+Accept: application/json
+
+<> 2022-07-22T074919.200.json
+
+###
+
