@@ -1,0 +1,6 @@
+{
+  "timestamp": "2022-07-27T17:03:50.882+00:00",
+  "status": 500,
+  "error": "Internal Server Error",
+  "path": "/getsleepmetrics"
+}

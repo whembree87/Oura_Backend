@@ -1,6 +1,5 @@
 package com.oura.backend.json_presenter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oura.backend.entity.HeartMetricsEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,17 +12,15 @@ import java.util.List;
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
-public class HeartViewJsonPresenter {
+public class HeartMetricsJsonPresenter {
     private String date;
     private double averageRestingHeartRate;
     private double lowestRestingHeartRate;
     private int averageHrv;
     private int bloodPressure;
 
-    public static HeartViewJsonPresenter from(HeartMetricsEntity entity) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-
-        return HeartViewJsonPresenter.builder()
+    public static HeartMetricsJsonPresenter from(HeartMetricsEntity entity) throws IOException {
+        return HeartMetricsJsonPresenter.builder()
                 .date(entity.getDate())
                 .averageRestingHeartRate(entity.getAverageRestingHeartRate())
                 .lowestRestingHeartRate(entity.getLowestRestingHeartRate())
@@ -32,11 +29,11 @@ public class HeartViewJsonPresenter {
                 .build();
     }
 
-    public static  List<HeartViewJsonPresenter> from(List<HeartMetricsEntity> entities) throws IOException {
-        List<HeartViewJsonPresenter> list = new ArrayList<>();
+    public static  List<HeartMetricsJsonPresenter> from(List<HeartMetricsEntity> entities) throws IOException {
+        List<HeartMetricsJsonPresenter> list = new ArrayList<>();
 
         for (HeartMetricsEntity entity: entities) {
-            HeartViewJsonPresenter from = from(entity);
+            HeartMetricsJsonPresenter from = from(entity);
             list.add(from);
         }
 
