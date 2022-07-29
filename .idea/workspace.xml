@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c225142-2e2b-4b48-bbae-1fcaa396c8fc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/oura/backend/repo_manager/impl/HeartMetricsRepoManagerImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/oura/backend/controller/MetricsControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/oura/backend/controller/MetricsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/oura/backend/controller/MetricsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/oura/backend/controller/MetricsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/oura/backend/controller/MetricsController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +95,7 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.oura.backend.controller" />
       <recent name="com.oura.backend.repo_manager.impl" />
     </key>
   </component>
@@ -104,13 +106,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.HeartMetricsRepoManagerImplTest">
-    <configuration name="Oura_GET | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/Oura_GET.http" requestIdentifier="#1" runType="Run single request">
-      <method v="2" />
-    </configuration>
-    <configuration name="Oura_GET | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/Oura_GET.http" index="2" requestIdentifier="#2" runType="Run single request">
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="JUnit.MetricsControllerTest.getHeartMetricsReturns200AndListOfEntitiesOnSuccess">
     <configuration name="HeartMetricsRepoManagerImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Oura" />
       <extension name="coverage">
@@ -158,6 +154,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MetricsControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Oura" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.oura.backend.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.oura.backend.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.oura.backend.controller.MetricsControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MetricsControllerTest.getHeartMetricsReturns200AndListOfEntitiesOnSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Oura" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.oura.backend.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.oura.backend.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.oura.backend.controller.MetricsControllerTest" />
+      <option name="METHOD_NAME" value="getHeartMetricsReturns200AndListOfEntitiesOnSuccess" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OuraBackendApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="ACTIVE_PROFILES" />
       <module name="Oura" />
@@ -179,21 +206,21 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="HTTP Request.Oura_GET | #1" />
-      <item itemvalue="HTTP Request.Oura_GET | #2" />
       <item itemvalue="JUnit.HeartMetricsRepoManagerImplTest" />
       <item itemvalue="JUnit.HeartMetricsRepoManagerImplTest.getHeartMetricsReturnsDataFromRepoCall" />
       <item itemvalue="JUnit.HeartMetricsRepoManagerImplTest.getHeartMetricsReturnsResultsOfRepoCallWithNoData" />
+      <item itemvalue="JUnit.MetricsControllerTest" />
+      <item itemvalue="JUnit.MetricsControllerTest.getHeartMetricsReturns200AndListOfEntitiesOnSuccess" />
       <item itemvalue="Spring Boot.OuraBackendApplication" />
       <item itemvalue="Spring Boot.OuraBackendApplication (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MetricsControllerTest.getHeartMetricsReturns200AndListOfEntitiesOnSuccess" />
+        <item itemvalue="JUnit.MetricsControllerTest" />
         <item itemvalue="JUnit.HeartMetricsRepoManagerImplTest" />
         <item itemvalue="JUnit.HeartMetricsRepoManagerImplTest.getHeartMetricsReturnsResultsOfRepoCallWithNoData" />
         <item itemvalue="JUnit.HeartMetricsRepoManagerImplTest.getHeartMetricsReturnsDataFromRepoCall" />
-        <item itemvalue="HTTP Request.Oura_GET | #2" />
-        <item itemvalue="HTTP Request.Oura_GET | #1" />
       </list>
     </recent_temporary>
   </component>
@@ -210,7 +237,7 @@
       <workItem from="1658926890572" duration="11000" />
       <workItem from="1658926912914" duration="183000" />
       <workItem from="1658927120547" duration="1020000" />
-      <workItem from="1658928713718" duration="9639000" />
+      <workItem from="1658928713718" duration="13435000" />
     </task>
     <servers />
   </component>
@@ -219,6 +246,17 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/oura/backend/controller/MetricsControllerTest.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

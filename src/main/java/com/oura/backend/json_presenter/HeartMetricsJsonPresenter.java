@@ -13,6 +13,7 @@ import java.util.List;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 public class HeartMetricsJsonPresenter {
+    private String id;
     private String date;
     private double averageRestingHeartRate;
     private double lowestRestingHeartRate;
@@ -21,6 +22,7 @@ public class HeartMetricsJsonPresenter {
 
     public static HeartMetricsJsonPresenter from(HeartMetricsEntity entity) throws IOException {
         return HeartMetricsJsonPresenter.builder()
+                .id(entity.getId())
                 .date(entity.getDate())
                 .averageRestingHeartRate(entity.getAverageRestingHeartRate())
                 .lowestRestingHeartRate(entity.getLowestRestingHeartRate())

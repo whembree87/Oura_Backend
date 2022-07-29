@@ -23,7 +23,7 @@ public class MetricsController {
     @Autowired
     ISleepMetricsRepoManager sleepMetricsRepoManager;
 
-    @GetMapping(value="/getheartmetrics",  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value="/getheartmetrics",  produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<HeartMetricsJsonPresenter> getHeartMetrics() {
         List<HeartMetricsEntity> entities = heartMetricsRepoManager.getHeartMetrics();
