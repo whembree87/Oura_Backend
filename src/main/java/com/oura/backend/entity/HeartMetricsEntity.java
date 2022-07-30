@@ -1,14 +1,12 @@
 package com.oura.backend.entity;
 
+import com.oura.backend.id.HeartMetricsId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Builder(toBuilder = true)
@@ -16,12 +14,13 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "heart")
+@IdClass(HeartMetricsId.class)
 public class HeartMetricsEntity {
     @Id
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id", unique = true, length = 36, nullable = false)
     private String id;
 
-    @Column(name = "date")
+    @Column(name = "date", unique = true, nullable = false)
     private String date;
 
     @Column(name = "average_resting_heart_rate")

@@ -29,11 +29,7 @@ public class MetricsController {
         List<HeartMetricsEntity> entities = heartMetricsRepoManager.getHeartMetrics();
 
         try {
-            if (!entities.isEmpty()) {
-                return HeartMetricsJsonPresenter.from(entities);
-            }
-
-            throw new HttpException.HttpNoContentException();
+            return HeartMetricsJsonPresenter.from(entities);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -73,11 +73,58 @@ public class MetricsControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
 
-        String actual = result.getResponse().getContentAsString();
-        String expected = objectMapper.writeValueAsString(Collections.singletonList(expectedResult));
-
         assert (result.getResponse().getContentAsString())
                 .equals(objectMapper.writeValueAsString(Collections.singletonList(expectedResult)));
+
+        verify(heartMetricsRepoManager, times(1)).getHeartMetrics();
+        verifyNoMoreInteractions(heartMetricsRepoManager);
+    }
+
+    // ToDo: Complete me
+    @Test
+    public void getHeartMetricsReturns422IfUnableToPresentData() throws Exception {
+        HeartMetricsEntity mockEntity = HeartMetricsEntity.builder()
+                .id(null)// Is this what makes the entity unprocessable?
+                .build();
+
+        when(heartMetricsRepoManager.getHeartMetrics()).thenReturn(Collections.singletonList(mockEntity));
+
+        mockMvc.perform(get("/getheartmetrics")
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isUnprocessableEntity());
+
+        verify(heartMetricsRepoManager, times(1)).getHeartMetrics();
+        verifyNoMoreInteractions(heartMetricsRepoManager);
+    }
+
+    @Test
+    public void getHeartMetricsReturnsTheExpectedJson() throws Exception {
+        String id = "123";
+        String date = "2022-07-30 00:00:00";
+        double averageRestingHeartRate = 0.0;
+        double lowestRestingHeartRate = 0.0;
+        int averageHrv = 0;
+        int bloodPressure = 0;
+
+        HeartMetricsEntity mockEntity = HeartMetricsEntity.builder()
+                .id(id)
+                .date(date)
+                .averageRestingHeartRate(averageRestingHeartRate)
+                .lowestRestingHeartRate(lowestRestingHeartRate)
+                .averageHrv(averageHrv)
+                .bloodPressure(bloodPressure)
+                .build();
+        String expectedJson = "[{\"id\":\"123\",\"date\":\"2022-07-30 00:00:00\",\"averageRestingHeartRate\":0.0,\"lowestRestingHeartRate\":0.0,\"averageHrv\":0,\"bloodPressure\":0}]";
+
+        when(heartMetricsRepoManager.getHeartMetrics()).thenReturn(Collections.singletonList(mockEntity));
+
+        MvcResult result = mockMvc.perform(get("/getheartmetrics")
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        assert (result.getResponse().getContentAsString()).equals(expectedJson);
 
         verify(heartMetricsRepoManager, times(1)).getHeartMetrics();
         verifyNoMoreInteractions(heartMetricsRepoManager);
