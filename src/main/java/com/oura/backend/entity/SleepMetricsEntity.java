@@ -1,14 +1,12 @@
 package com.oura.backend.entity;
 
+import com.oura.backend.id.SleepMetricsId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Builder(toBuilder = true)
@@ -16,6 +14,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sleep")
+@IdClass(SleepMetricsId.class)
 public class SleepMetricsEntity {
     @Id
     @Column(name = "id", unique = true, nullable = false)

@@ -2,7 +2,9 @@ package com.oura.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oura.backend.entity.HeartMetricsEntity;
+import com.oura.backend.entity.SleepMetricsEntity;
 import com.oura.backend.repo_manager.IHeartMetricsRepoManager;
+import com.oura.backend.repo_manager.ISleepMetricsRepoManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MetricsControllerTest {
     @Mock
     private IHeartMetricsRepoManager heartMetricsRepoManager;
+    @Mock
+    private ISleepMetricsRepoManager sleepMetricsRepoManager;
 
     @InjectMocks
     private MetricsController subject;
@@ -128,5 +132,181 @@ public class MetricsControllerTest {
 
         verify(heartMetricsRepoManager, times(1)).getHeartMetrics();
         verifyNoMoreInteractions(heartMetricsRepoManager);
+    }
+
+    @Test
+    public void getSleepMetricsReturns200AndListOfEntitiesOnSuccess() throws Exception {
+        String id = "123";
+        String date = "2022-07-30 00:00:00";
+        int sleepScore = 0;
+        int totalSleepScore = 0;
+        int remSleepScore = 0;
+        int deepSleepScore = 0;
+        int sleepEfficiencyScore = 0;
+        int restfulnessScore = 0;
+        int sleepLatencyScore = 0;
+        int sleepTimingScore = 0;
+        int totalSleepDuration = 0;
+        int totalBedtime = 0;
+        int awakeTime = 0;
+        int remSleepDuration = 0;
+        int lightSleepDuration = 0;
+        int deepSleepDuration = 0;
+        int restlessSleep = 0;
+        int sleepEfficiency = 0;
+        int sleepLatency = 0;
+        int sleepTiming = 0;
+        String bedtimeStart = "2022-07-30 00:00:00";
+        String bedtimeEnd = "2022-07-30 00:00:00";
+
+        SleepMetricsEntity mockEntity = SleepMetricsEntity.builder()
+                .id(id)
+                .date(date)
+                .sleepScore(sleepScore)
+                .totalSleepScore(totalSleepScore)
+                .remSleepScore(remSleepScore)
+                .deepSleepScore(deepSleepScore)
+                .sleepEfficiencyScore(sleepEfficiencyScore)
+                .restfulnessScore(restfulnessScore)
+                .sleepLatencyScore(sleepLatencyScore)
+                .sleepTimingScore(sleepTimingScore)
+                .totalSleepDuration(totalSleepDuration)
+                .totalBedtime(totalBedtime)
+                .awakeTime(awakeTime)
+                .remSleepDuration(remSleepDuration)
+                .lightSleepDuration(lightSleepDuration)
+                .deepSleepDuration(deepSleepDuration)
+                .restlessSleep(restlessSleep)
+                .sleepEfficiency(sleepEfficiency)
+                .sleepLatency(sleepLatency)
+                .sleepTiming(sleepTiming)
+                .bedtimeStart(bedtimeStart)
+                .bedtimeEnd(bedtimeEnd)
+                .build();
+
+        SleepMetricsEntity expectedResult = SleepMetricsEntity.builder()
+                .id(id)
+                .date(date)
+                .sleepScore(sleepScore)
+                .totalSleepScore(totalSleepScore)
+                .remSleepScore(remSleepScore)
+                .deepSleepScore(deepSleepScore)
+                .sleepEfficiencyScore(sleepEfficiencyScore)
+                .restfulnessScore(restfulnessScore)
+                .sleepLatencyScore(sleepLatencyScore)
+                .sleepTimingScore(sleepTimingScore)
+                .totalSleepDuration(totalSleepDuration)
+                .totalBedtime(totalBedtime)
+                .awakeTime(awakeTime)
+                .remSleepDuration(remSleepDuration)
+                .lightSleepDuration(lightSleepDuration)
+                .deepSleepDuration(deepSleepDuration)
+                .restlessSleep(restlessSleep)
+                .sleepEfficiency(sleepEfficiency)
+                .sleepLatency(sleepLatency)
+                .sleepTiming(sleepTiming)
+                .bedtimeStart(bedtimeStart)
+                .bedtimeEnd(bedtimeEnd)
+                .build();
+
+        when(sleepMetricsRepoManager.getSleepMetrics()).thenReturn(Collections.singletonList(mockEntity));
+
+        MvcResult result = mockMvc
+                .perform((get("/getsleepmetrics")).contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        String actual = result.getResponse().getContentAsString();
+        String expected = objectMapper.writeValueAsString(Collections.singletonList(expectedResult));
+
+        assert (result.getResponse().getContentAsString())
+                .equals(objectMapper.writeValueAsString(Collections.singletonList(expectedResult)));
+
+        verify(sleepMetricsRepoManager, times(1)).getSleepMetrics();
+        verifyNoMoreInteractions(sleepMetricsRepoManager);
+    }
+
+    // ToDo: Complete me
+    @Test
+    public void getSleepMetricsReturns422IfUnableToPresentData() throws Exception {
+        SleepMetricsEntity mockEntity = SleepMetricsEntity.builder()
+                .id(null)// Is this what makes the entity unprocessable?
+                .build();
+
+        when(sleepMetricsRepoManager.getSleepMetrics()).thenReturn(Collections.singletonList(mockEntity));
+
+        mockMvc.perform(get("/getsleepmetrics")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isUnprocessableEntity());
+
+        verify(sleepMetricsRepoManager, times(1)).getSleepMetrics();
+        verifyNoMoreInteractions(sleepMetricsRepoManager);
+    }
+
+    @Test
+    public void getSleepMetricsReturnsTheExpectedJson() throws Exception {
+        String id = "123";
+        String date = "2022-07-30 00:00:00";
+        int sleepScore = 0;
+        int totalSleepScore = 0;
+        int remSleepScore = 0;
+        int deepSleepScore = 0;
+        int sleepEfficiencyScore = 0;
+        int restfulnessScore = 0;
+        int sleepLatencyScore = 0;
+        int sleepTimingScore = 0;
+        int totalSleepDuration = 0;
+        int totalBedtime = 0;
+        int awakeTime = 0;
+        int remSleepDuration = 0;
+        int lightSleepDuration = 0;
+        int deepSleepDuration = 0;
+        int restlessSleep = 0;
+        int sleepEfficiency = 0;
+        int sleepLatency = 0;
+        int sleepTiming = 0;
+        String bedtimeStart = "2022-07-30 00:00:00";
+        String bedtimeEnd = "2022-07-30 00:00:00";
+
+        SleepMetricsEntity mockEntity = SleepMetricsEntity.builder()
+                .id(id)
+                .date(date)
+                .sleepScore(sleepScore)
+                .totalSleepScore(totalSleepScore)
+                .remSleepScore(remSleepScore)
+                .deepSleepScore(deepSleepScore)
+                .sleepEfficiencyScore(sleepEfficiencyScore)
+                .restfulnessScore(restfulnessScore)
+                .sleepLatencyScore(sleepLatencyScore)
+                .sleepTimingScore(sleepTimingScore)
+                .totalSleepDuration(totalSleepDuration)
+                .totalBedtime(totalBedtime)
+                .awakeTime(awakeTime)
+                .remSleepDuration(remSleepDuration)
+                .lightSleepDuration(lightSleepDuration)
+                .deepSleepDuration(deepSleepDuration)
+                .restlessSleep(restlessSleep)
+                .sleepEfficiency(sleepEfficiency)
+                .sleepLatency(sleepLatency)
+                .sleepTiming(sleepTiming)
+                .bedtimeStart(bedtimeStart)
+                .bedtimeEnd(bedtimeEnd)
+                .build();
+        String expectedJson = "[{\"id\":\"123\",\"date\":\"2022-07-30 00:00:00\",\"sleepScore\":0,\"totalSleepScore\":0,\"remSleepScore\":0,\"deepSleepScore\":0,\"sleepEfficiencyScore\":0,\"restfulnessScore\":0,\"sleepLatencyScore\":0,\"sleepTimingScore\":0,\"totalSleepDuration\":0,\"totalBedtime\":0,\"awakeTime\":0,\"remSleepDuration\":0,\"lightSleepDuration\":0,\"deepSleepDuration\":0,\"restlessSleep\":0,\"sleepEfficiency\":0,\"sleepLatency\":0,\"sleepTiming\":0,\"bedtimeStart\":\"2022-07-30 00:00:00\",\"bedtimeEnd\":\"2022-07-30 00:00:00\"}]";
+
+        when(sleepMetricsRepoManager.getSleepMetrics()).thenReturn(Collections.singletonList(mockEntity));
+
+        MvcResult result = mockMvc.perform(get("/getsleepmetrics")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        String actual = result.getResponse().getContentAsString();
+        assert (result.getResponse().getContentAsString()).equals(expectedJson);
+
+        verify(sleepMetricsRepoManager, times(1)).getSleepMetrics();
+        verifyNoMoreInteractions(sleepMetricsRepoManager);
     }
 }

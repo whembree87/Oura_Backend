@@ -37,17 +37,13 @@ public class MetricsController {
         throw new HttpException.HttpUnprocessableEntityException();
     }
 
-    @GetMapping(value="/getsleepmetrics", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value="/getsleepmetrics", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<SleepMetricsJsonPresenter> getSleepMetrics() {
         List<SleepMetricsEntity> entities = sleepMetricsRepoManager.getSleepMetrics();
 
         try {
-            if (!entities.isEmpty()) {
-                return SleepMetricsJsonPresenter.from(entities);
-            }
-
-            throw new HttpException.HttpNoContentException();
+            return SleepMetricsJsonPresenter.from(entities);
         } catch (IOException e) {
             e.printStackTrace();
         }

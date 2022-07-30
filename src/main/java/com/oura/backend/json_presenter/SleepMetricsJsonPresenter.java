@@ -13,6 +13,7 @@ import java.util.List;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 public class SleepMetricsJsonPresenter {
+    private String id;
     private String date;
     private int sleepScore;
     private int totalSleepScore;
@@ -37,6 +38,7 @@ public class SleepMetricsJsonPresenter {
 
     public static SleepMetricsJsonPresenter from(SleepMetricsEntity entity) throws IOException {
         return SleepMetricsJsonPresenter.builder()
+                .id(entity.getId())
                 .date(entity.getDate())
                 .sleepScore(entity.getSleepScore())
                 .totalSleepScore(entity.getTotalSleepScore())
