@@ -84,23 +84,6 @@ public class MetricsControllerTest {
         verifyNoMoreInteractions(heartMetricsRepoManager);
     }
 
-    // ToDo: Complete me
-    @Test
-    public void getHeartMetricsReturns422IfUnableToPresentData() throws Exception {
-        HeartMetricsEntity mockEntity = HeartMetricsEntity.builder()
-                .id(null)// Is this what makes the entity unprocessable?
-                .build();
-
-        when(heartMetricsRepoManager.getHeartMetrics()).thenReturn(Collections.singletonList(mockEntity));
-
-        mockMvc.perform(get("/getheartmetrics")
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isUnprocessableEntity());
-
-        verify(heartMetricsRepoManager, times(1)).getHeartMetrics();
-        verifyNoMoreInteractions(heartMetricsRepoManager);
-    }
-
     @Test
     public void getHeartMetricsReturnsTheExpectedJson() throws Exception {
         String id = "123";
@@ -222,22 +205,6 @@ public class MetricsControllerTest {
 
         assert (result.getResponse().getContentAsString())
                 .equals(objectMapper.writeValueAsString(Collections.singletonList(expectedResult)));
-
-        verify(sleepMetricsRepoManager, times(1)).getSleepMetrics();
-        verifyNoMoreInteractions(sleepMetricsRepoManager);
-    }
-
-    // ToDo: Complete me
-    @Test
-    public void getSleepMetricsReturns422IfUnableToPresentData() throws Exception {
-        SleepMetricsEntity mockEntity = SleepMetricsEntity.builder()
-                .build();
-
-        when(sleepMetricsRepoManager.getSleepMetrics()).thenReturn(Collections.singletonList(mockEntity));
-
-        mockMvc.perform(get("/getsleepmetrics")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isUnprocessableEntity());
 
         verify(sleepMetricsRepoManager, times(1)).getSleepMetrics();
         verifyNoMoreInteractions(sleepMetricsRepoManager);
