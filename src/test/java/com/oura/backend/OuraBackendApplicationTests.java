@@ -9,5 +9,4 @@ class OuraBackendApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

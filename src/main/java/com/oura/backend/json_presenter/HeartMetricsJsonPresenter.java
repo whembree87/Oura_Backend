@@ -20,7 +20,7 @@ public class HeartMetricsJsonPresenter {
     private int averageHrv;
     private int bloodPressure;
 
-    public static HeartMetricsJsonPresenter from(HeartMetricsEntity entity) {
+    private static HeartMetricsJsonPresenter from(HeartMetricsEntity entity) {
         return HeartMetricsJsonPresenter.builder()
                 .id(entity.getId())
                 .date(entity.getDate())

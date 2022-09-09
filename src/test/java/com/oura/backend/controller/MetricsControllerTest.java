@@ -231,7 +231,6 @@ public class MetricsControllerTest {
     @Test
     public void getSleepMetricsReturns422IfUnableToPresentData() throws Exception {
         SleepMetricsEntity mockEntity = SleepMetricsEntity.builder()
-                .id(null)// Is this what makes the entity unprocessable?
                 .build();
 
         when(sleepMetricsRepoManager.getSleepMetrics()).thenReturn(Collections.singletonList(mockEntity));
