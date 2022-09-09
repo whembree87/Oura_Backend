@@ -36,7 +36,7 @@ public class SleepMetricsJsonPresenter {
     private String bedtimeStart;
     private String bedtimeEnd;
 
-    public static SleepMetricsJsonPresenter from(SleepMetricsEntity entity) throws IOException {
+    public static SleepMetricsJsonPresenter from(SleepMetricsEntity entity) {
         return SleepMetricsJsonPresenter.builder()
                 .id(entity.getId())
                 .date(entity.getDate())
@@ -63,7 +63,7 @@ public class SleepMetricsJsonPresenter {
                 .build();
     }
 
-    public static List<SleepMetricsJsonPresenter> from(List<SleepMetricsEntity> entities) throws IOException {
+    public static List<SleepMetricsJsonPresenter> from(List<SleepMetricsEntity> entities) {
         List<SleepMetricsJsonPresenter> list = new ArrayList<>();
 
         for (SleepMetricsEntity entity: entities) {

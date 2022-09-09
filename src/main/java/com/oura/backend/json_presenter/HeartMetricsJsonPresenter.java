@@ -31,7 +31,7 @@ public class HeartMetricsJsonPresenter {
                 .build();
     }
 
-    public static  List<HeartMetricsJsonPresenter> from(List<HeartMetricsEntity> entities) throws IOException {
+    public static  List<HeartMetricsJsonPresenter> from(List<HeartMetricsEntity> entities) {
         List<HeartMetricsJsonPresenter> list = new ArrayList<>();
 
         for (HeartMetricsEntity entity: entities) {
