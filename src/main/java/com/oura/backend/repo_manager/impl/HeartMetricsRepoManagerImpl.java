@@ -4,6 +4,8 @@ import com.oura.backend.entity.HeartMetricsEntity;
 import com.oura.backend.repo.IHeartMetricsRepo;
 import com.oura.backend.repo_manager.IHeartMetricsRepoManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,5 +18,10 @@ public class HeartMetricsRepoManagerImpl implements IHeartMetricsRepoManager {
     @Override
     public List<HeartMetricsEntity> getHeartMetrics() {
         return heartMetricsRepo.findAll();
+    }
+
+    @Override
+    public Page<HeartMetricsEntity> getPagedHeartMetrics() {
+        return heartMetricsRepo.findAll(PageRequest.of(0, 3));
     }
 }
