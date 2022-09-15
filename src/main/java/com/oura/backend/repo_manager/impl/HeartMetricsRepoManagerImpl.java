@@ -21,7 +21,7 @@ public class HeartMetricsRepoManagerImpl implements IHeartMetricsRepoManager {
     }
 
     @Override
-    public Page<HeartMetricsEntity> getPagedHeartMetrics() {
-        return heartMetricsRepo.findAll(PageRequest.of(0, 3));
+    public Page<HeartMetricsEntity> getPagedHeartMetrics(int page, int size) {
+        return heartMetricsRepo.findAll(PageRequest.of(page, size));
     }
 }

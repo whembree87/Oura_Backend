@@ -8,5 +8,5 @@ import java.util.List;
 public interface IHeartMetricsRepoManager {
     List<HeartMetricsEntity> getHeartMetrics();
 
-    Page<HeartMetricsEntity> getPagedHeartMetrics();
+    Page<HeartMetricsEntity> getPagedHeartMetrics(int page, int size);
 }
