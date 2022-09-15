@@ -9,6 +9,7 @@ import com.oura.backend.repo_manager.ISleepMetricsRepoManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class MetricsController {
 
     // ToDo : Complete me
     @GetMapping(value="/getpagedheartmetrics",  produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<HeartMetricsJsonPresenter> getPagedHeartMetrics() {
-        List<HeartMetricsEntity> entities = heartMetricsRepoManager.getPagedHeartMetrics(0, 1).getContent();
+    public List<HeartMetricsJsonPresenter> getPagedHeartMetrics(@RequestParam int page, @RequestParam int size) {
+        List<HeartMetricsEntity> entities = heartMetricsRepoManager.getPagedHeartMetrics(page, size).getContent();
 
         return HeartMetricsJsonPresenter.from(entities);
     }

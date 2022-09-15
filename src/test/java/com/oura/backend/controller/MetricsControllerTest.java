@@ -11,6 +11,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -112,6 +114,53 @@ public class MetricsControllerTest {
                 .andReturn();
 
         assert (result.getResponse().getContentAsString()).equals(expectedJson);
+
+        verify(heartMetricsRepoManager, times(1)).getHeartMetrics();
+        verifyNoMoreInteractions(heartMetricsRepoManager);
+    }
+
+    // ToDo : Complete Me
+    @Test
+    public void getPagedHeartMetricsReturns200AndListOfEntitiesOnSuccess() throws Exception {
+        String id = "123";
+        String date = "2022-07-29 00:00:00";
+        double averageRestingHeartRate = 0.0;
+        double lowestRestingHeartRate = 0.0;
+        int averageHrv = 0;
+        int bloodPressure = 0;
+
+        HeartMetricsEntity mockEntity = HeartMetricsEntity.builder()
+                .id(id)
+                .date(date)
+                .averageRestingHeartRate(averageRestingHeartRate)
+                .lowestRestingHeartRate(lowestRestingHeartRate)
+                .averageHrv(averageHrv)
+                .bloodPressure(bloodPressure)
+                .build();
+        Page<HeartMetricsEntity> pagedMockEntity = new PageImpl<>(Collections.singletonList(mockEntity));
+
+        HeartMetricsEntity expectedResult = HeartMetricsEntity.builder()
+                .id(id)
+                .date(date)
+                .averageRestingHeartRate(averageRestingHeartRate)
+                .lowestRestingHeartRate(lowestRestingHeartRate)
+                .averageHrv(averageHrv)
+                .bloodPressure(bloodPressure)
+                .build();
+
+        when(heartMetricsRepoManager.getPagedHeartMetrics(anyInt(), anyInt())).thenReturn(pagedMockEntity);
+
+        MvcResult result = mockMvc
+                .perform((get("/getpagedheartmetrics"))
+                        .param("page", "0")
+                        .param("size", "1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        assert (result.getResponse().getContentAsString())
+                .equals(objectMapper.writeValueAsString(Collections.singletonList(expectedResult)));
 
         verify(heartMetricsRepoManager, times(1)).getHeartMetrics();
         verifyNoMoreInteractions(heartMetricsRepoManager);
