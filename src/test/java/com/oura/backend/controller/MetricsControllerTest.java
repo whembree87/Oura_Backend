@@ -80,8 +80,8 @@ public class MetricsControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
 
-        assert (result.getResponse().getContentAsString())
-                .equals(objectMapper.writeValueAsString(Collections.singletonList(expectedResult)));
+        assertThat(result.getResponse().getContentAsString())
+                .isEqualTo(objectMapper.writeValueAsString(Collections.singletonList(expectedResult)));
 
         verify(heartMetricsRepoManager, times(1)).getHeartMetrics();
         verifyNoMoreInteractions(heartMetricsRepoManager);
@@ -114,7 +114,7 @@ public class MetricsControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
 
-        assert (result.getResponse().getContentAsString()).equals(expectedJson);
+        assertThat(result.getResponse().getContentAsString()).isEqualTo(expectedJson);
 
         verify(heartMetricsRepoManager, times(1)).getHeartMetrics();
         verifyNoMoreInteractions(heartMetricsRepoManager);
@@ -290,8 +290,8 @@ public class MetricsControllerTest {
         String actual = result.getResponse().getContentAsString();
         String expected = objectMapper.writeValueAsString(Collections.singletonList(expectedResult));
 
-        assert (result.getResponse().getContentAsString())
-                .equals(objectMapper.writeValueAsString(Collections.singletonList(expectedResult)));
+        assertThat(result.getResponse().getContentAsString())
+                .isEqualTo(objectMapper.writeValueAsString(Collections.singletonList(expectedResult)));
 
         verify(sleepMetricsRepoManager, times(1)).getSleepMetrics();
         verifyNoMoreInteractions(sleepMetricsRepoManager);
@@ -357,7 +357,7 @@ public class MetricsControllerTest {
                 .andReturn();
 
         String actual = result.getResponse().getContentAsString();
-        assert (result.getResponse().getContentAsString()).equals(expectedJson);
+        assertThat(result.getResponse().getContentAsString()).isEqualTo(expectedJson);
 
         verify(sleepMetricsRepoManager, times(1)).getSleepMetrics();
         verifyNoMoreInteractions(sleepMetricsRepoManager);
