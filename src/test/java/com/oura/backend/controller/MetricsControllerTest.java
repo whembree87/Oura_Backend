@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Collections;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -119,7 +120,6 @@ public class MetricsControllerTest {
         verifyNoMoreInteractions(heartMetricsRepoManager);
     }
 
-    // ToDo : Complete Me
     @Test
     public void getPagedHeartMetricsReturns200AndListOfEntitiesOnSuccess() throws Exception {
         String id = "123";
@@ -137,7 +137,7 @@ public class MetricsControllerTest {
                 .averageHrv(averageHrv)
                 .bloodPressure(bloodPressure)
                 .build();
-        Page<HeartMetricsEntity> pagedMockEntity = new PageImpl<>(Collections.singletonList(mockEntity));
+        Page<HeartMetricsEntity> MockPagedEntity = new PageImpl<>(Collections.singletonList(mockEntity));
 
         HeartMetricsEntity expectedResult = HeartMetricsEntity.builder()
                 .id(id)
@@ -148,7 +148,7 @@ public class MetricsControllerTest {
                 .bloodPressure(bloodPressure)
                 .build();
 
-        when(heartMetricsRepoManager.getPagedHeartMetrics(anyInt(), anyInt())).thenReturn(pagedMockEntity);
+        when(heartMetricsRepoManager.getPagedHeartMetrics(anyInt(), anyInt())).thenReturn(MockPagedEntity);
 
         MvcResult result = mockMvc
                 .perform((get("/getpagedheartmetrics"))
@@ -159,10 +159,48 @@ public class MetricsControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
 
-        assert (result.getResponse().getContentAsString())
-                .equals(objectMapper.writeValueAsString(Collections.singletonList(expectedResult)));
+        assertThat(result.getResponse().getContentAsString())
+                .isEqualTo(objectMapper.writeValueAsString(Collections.singletonList(expectedResult)));
 
-        verify(heartMetricsRepoManager, times(1)).getHeartMetrics();
+        verify(heartMetricsRepoManager, times(1)).getPagedHeartMetrics(0, 1);
+        verifyNoMoreInteractions(heartMetricsRepoManager);
+    }
+
+    @Test
+    public void getPagedHeartMetricsReturnsTheExpectedJson() throws Exception {
+        String id = "123";
+        String date = "2022-07-30 00:00:00";
+        double averageRestingHeartRate = 0.0;
+        double lowestRestingHeartRate = 0.0;
+        int averageHrv = 0;
+        int bloodPressure = 0;
+
+        HeartMetricsEntity mockEntity = HeartMetricsEntity.builder()
+                .id(id)
+                .date(date)
+                .averageRestingHeartRate(averageRestingHeartRate)
+                .lowestRestingHeartRate(lowestRestingHeartRate)
+                .averageHrv(averageHrv)
+                .bloodPressure(bloodPressure)
+                .build();
+        Page<HeartMetricsEntity> mockPagedEntity = new PageImpl<>(Collections.singletonList(mockEntity));
+        String expectedJson = "[{\"id\":\"123\",\"date\":\"2022-07-30 00:00:00\",\"averageRestingHeartRate\":0.0,\"lowestRestingHeartRate\":0.0,\"averageHrv\":0,\"bloodPressure\":0}]";
+
+        when(heartMetricsRepoManager.getPagedHeartMetrics(anyInt(), anyInt()))
+                .thenReturn(mockPagedEntity);
+
+        MvcResult result = mockMvc
+                .perform((get("/getpagedheartmetrics"))
+                        .param("page", "0")
+                        .param("size", "1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        assertThat(result.getResponse().getContentAsString()).isEqualTo(expectedJson);
+
+        verify(heartMetricsRepoManager, times(1)).getPagedHeartMetrics(0, 1);
         verifyNoMoreInteractions(heartMetricsRepoManager);
     }
 

@@ -28,7 +28,6 @@ public class MetricsController {
         return HeartMetricsJsonPresenter.from(entities);
     }
 
-    // ToDo : Complete me
     @GetMapping(value="/getpagedheartmetrics",  produces = MediaType.APPLICATION_JSON_VALUE)
     public List<HeartMetricsJsonPresenter> getPagedHeartMetrics(@RequestParam int page, @RequestParam int size) {
         List<HeartMetricsEntity> entities = heartMetricsRepoManager.getPagedHeartMetrics(page, size).getContent();
