@@ -16,6 +16,7 @@ import javax.persistence.*;
 @Table(name = "heart")
 @IdClass(HeartMetricsId.class)
 public class HeartMetricsEntity {
+    // ToDo: Should @GeneratedValue be used here?
     @Id
     @Column(name = "id", unique = true, length = 36, nullable = false)
     private String id;

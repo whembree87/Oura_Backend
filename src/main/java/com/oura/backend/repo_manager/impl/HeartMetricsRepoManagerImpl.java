@@ -24,4 +24,8 @@ public class HeartMetricsRepoManagerImpl implements IHeartMetricsRepoManager {
     public Page<HeartMetricsEntity> getPagedHeartMetrics(int page, int size) {
         return heartMetricsRepo.findAll(PageRequest.of(page, size));
     }
+
+    public HeartMetricsEntity updateHeartMetric(int id) {
+        return null;
+    }
 }
