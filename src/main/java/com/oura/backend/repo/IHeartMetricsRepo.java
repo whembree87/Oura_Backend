@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface IHeartMetricsRepo extends JpaRepository<HeartMetricsEntity, Integer> {
     List<HeartMetricsEntity> findAll();
+
+    HeartMetricsEntity getReferenceById(String id);
 }

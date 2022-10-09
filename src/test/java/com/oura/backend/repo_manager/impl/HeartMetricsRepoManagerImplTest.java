@@ -1,6 +1,7 @@
 package com.oura.backend.repo_manager.impl;
 
 import com.oura.backend.entity.HeartMetricsEntity;
+import com.oura.backend.model.HeartMetricUpdate;
 import com.oura.backend.repo.IHeartMetricsRepo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -98,6 +99,54 @@ public class HeartMetricsRepoManagerImplTest {
         assertThat(actualPagedHeartMetricsEntity).isEqualTo(expectedPagedHeartMetricsEntity);
 
         verify(heartMetricsRepo, times(1)).findAll(isA(PageRequest.class));
+        verifyNoMoreInteractions(heartMetricsRepo);
+    }
+
+    @Test
+    public void updateHeartMetricReturnsResultsOfRepoCallWithNoData() {
+        when(heartMetricsRepo.getReferenceById(anyString())).thenReturn(null);
+
+        HeartMetricUpdate entityToSave = HeartMetricUpdate.builder()
+                .id("123")
+                .date("Some new date")
+                .build();
+
+        HeartMetricsEntity actualEntity = subject.updateHeartMetric(entityToSave);
+
+        assertThat(actualEntity).isEqualTo(null);
+
+        verify(heartMetricsRepo, times(1)).getReferenceById(anyString());
+        verifyNoMoreInteractions(heartMetricsRepo);
+    }
+    @Test
+    public void updateHeartMetricUpdatesExistingMetricInDatabase() {
+        HeartMetricsEntity expectedEntity = HeartMetricsEntity.builder()
+                .id("123")
+                .date("Some new date")
+                .build();
+
+        HeartMetricsEntity oldEntity = HeartMetricsEntity.builder()
+                .id("123")
+                .date("Some old date")
+                .build();
+        HeartMetricsEntity newEntity = HeartMetricsEntity.builder()
+                .id("123")
+                .date("Some new date")
+                .build();
+
+        when(heartMetricsRepo.getReferenceById(anyString())).thenReturn(oldEntity);
+        when(heartMetricsRepo.save(isA(HeartMetricsEntity.class))).thenReturn(newEntity);
+
+        HeartMetricUpdate entityToSave = HeartMetricUpdate.builder()
+                .id("123")
+                .date("Some new date")
+                .build();
+        HeartMetricsEntity actualEntity = subject.updateHeartMetric(entityToSave);
+
+        assertThat(actualEntity).isEqualTo(expectedEntity);
+
+        verify(heartMetricsRepo, times(1)).getReferenceById(anyString());
+        verify(heartMetricsRepo, times(1)).save(isA(HeartMetricsEntity.class));
         verifyNoMoreInteractions(heartMetricsRepo);
     }
 }
