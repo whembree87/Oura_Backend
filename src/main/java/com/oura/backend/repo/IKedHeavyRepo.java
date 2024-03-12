@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IKedHeavy extends JpaRepository<KedHeavyEntity, Integer> {
+public interface IKedHeavyRepo extends JpaRepository<KedHeavyEntity, Integer> {
     List<KedHeavyEntity> findAll();
 }
