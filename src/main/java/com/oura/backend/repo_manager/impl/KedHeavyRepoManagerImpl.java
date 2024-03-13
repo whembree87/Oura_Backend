@@ -13,6 +13,6 @@ public class KedHeavyRepoManagerImpl implements IKedHeavyRepoManager {
 
     @Override
     public List<KedHeavyEntity> getKedHeavy() {
-        return null;
+        return kedHeavyRepo.findAll();
     }
 }
