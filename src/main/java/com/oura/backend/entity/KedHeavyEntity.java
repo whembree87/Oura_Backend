@@ -23,6 +23,9 @@ public class KedHeavyEntity {
     @Column(name = "week", nullable = false)
     private int week;
 
+    @Column(name = "date")
+    private String date;
+
     @Column(name = "weight", nullable = false)
     private int weight;
 

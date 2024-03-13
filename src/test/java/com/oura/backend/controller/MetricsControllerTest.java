@@ -287,9 +287,6 @@ public class MetricsControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
 
-        String actual = result.getResponse().getContentAsString();
-        String expected = objectMapper.writeValueAsString(Collections.singletonList(expectedResult));
-
         assertThat(result.getResponse().getContentAsString())
                 .isEqualTo(objectMapper.writeValueAsString(Collections.singletonList(expectedResult)));
 
