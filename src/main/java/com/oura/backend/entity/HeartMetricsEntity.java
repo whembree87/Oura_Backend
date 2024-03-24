@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "heart")
+@Table(name = "heart", catalog = "Metrics")
 @IdClass(HeartMetricsId.class)
 public class HeartMetricsEntity {
     // ToDo: Should @GeneratedValue be used here?

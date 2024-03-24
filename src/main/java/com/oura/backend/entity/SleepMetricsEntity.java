@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "sleep")
+@Table(name = "sleep", catalog = "Metrics")
 @IdClass(SleepMetricsId.class)
 public class SleepMetricsEntity {
     @Id

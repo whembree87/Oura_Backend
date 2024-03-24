@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ked_heavy")
+@Table(name = "ked_heavy", catalog = "strength_training")
 @IdClass(KedHeavyId.class)
 public class KedHeavyEntity {
     @Id
