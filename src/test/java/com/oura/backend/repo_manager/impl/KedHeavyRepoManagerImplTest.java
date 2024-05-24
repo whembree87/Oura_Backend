@@ -100,4 +100,18 @@ public class KedHeavyRepoManagerImplTest {
         verify(kedHeavyRepo, times(1)).findAll(isA(PageRequest.class));
         verifyNoMoreInteractions(kedHeavyRepo);
     }
+
+    @Test
+    public void getKedHeavyCountReturnsCountOfKedHeavyRecords(){
+        long expectedCount = 10L;
+
+        when(kedHeavyRepo.count()).thenReturn(10L);
+
+        long actualCount = subject.getKedHeavyCount();
+
+        assertThat(actualCount).isEqualTo(expectedCount);
+
+        verify(kedHeavyRepo, times(1)).count();
+        verifyNoMoreInteractions(kedHeavyRepo);
+    }
 }

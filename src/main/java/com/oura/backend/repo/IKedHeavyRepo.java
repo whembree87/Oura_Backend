@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface IKedHeavyRepo extends JpaRepository<KedHeavyEntity, Integer> {
     List<KedHeavyEntity> findAll();
+
+    long count();
 }

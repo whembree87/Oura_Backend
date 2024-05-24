@@ -22,4 +22,8 @@ public class KedHeavyRepoManagerImpl implements IKedHeavyRepoManager {
     public Page<KedHeavyEntity> getPagedKedHeavy(int page, int size) {
         return kedHeavyRepo.findAll(PageRequest.of(page, size));
     }
+
+    public long getKedHeavyCount() {
+        return kedHeavyRepo.count();
+    }
 }
