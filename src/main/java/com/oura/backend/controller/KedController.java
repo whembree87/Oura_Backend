@@ -28,4 +28,9 @@ public class KedController {
 
         return KedHeavyJsonPresenter.from(entities);
     }
+
+    @GetMapping(value="/getkedheavycount")
+    public long getKedHeavyCount(){
+        return kedHeavyRepoManager.getKedHeavyCount();
+    }
 }

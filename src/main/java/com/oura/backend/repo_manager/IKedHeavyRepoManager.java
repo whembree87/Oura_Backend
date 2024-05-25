@@ -9,4 +9,6 @@ public interface IKedHeavyRepoManager {
     List<KedHeavyEntity> getKedHeavy();
 
     Page<KedHeavyEntity> getPagedKedHeavy(int page, int size);
+
+    long getKedHeavyCount();
 }

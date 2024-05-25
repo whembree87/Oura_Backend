@@ -230,4 +230,19 @@ public class KedControllerTest {
         verify(kedHeavyRepoManager, times(1)).getPagedKedHeavy(0, 1);
         verifyNoMoreInteractions(kedHeavyRepoManager);
     }
+
+    @Test
+    public void getKedHeavyCountReturnsTheTotalRecordCount() throws Exception {
+        when(kedHeavyRepoManager.getKedHeavyCount()).thenReturn(10L);
+
+        MvcResult result = mockMvc
+                .perform((get("/getkedheavycount")))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        assertThat(result.getResponse().getContentAsString()).isEqualTo("10");
+
+        verify(kedHeavyRepoManager, times(1)).getKedHeavyCount();
+        verifyNoMoreInteractions(kedHeavyRepoManager);
+    }
 }
