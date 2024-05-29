@@ -1,6 +1,8 @@
 package com.oura.backend.controller;
 
 import com.oura.backend.entity.KedHeavyEntity;
+import com.oura.backend.exceptions.HttpException;
+import com.oura.backend.json_presenter.KedHeavyCountJsonPresenter;
 import com.oura.backend.json_presenter.KedHeavyJsonPresenter;
 import com.oura.backend.repo_manager.IKedHeavyRepoManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,13 @@ public class KedController {
     }
 
     @GetMapping(value="/getkedheavycount")
-    public long getKedHeavyCount(){
-        return kedHeavyRepoManager.getKedHeavyCount();
+    public KedHeavyCountJsonPresenter getKedHeavyCount() {
+        long count = kedHeavyRepoManager.getKedHeavyCount();
+
+        if (count == 0) {
+            throw new HttpException.HttpNoContentException();
+        }
+
+        return KedHeavyCountJsonPresenter.from(count);
     }
 }

@@ -233,14 +233,20 @@ public class KedControllerTest {
 
     @Test
     public void getKedHeavyCountReturnsTheTotalRecordCount() throws Exception {
-        when(kedHeavyRepoManager.getKedHeavyCount()).thenReturn(10L);
+        long count = 10L;
+        String expectedJson = "{\"count\":10}";
+
+        when(kedHeavyRepoManager.getKedHeavyCount()).thenReturn(count);
 
         MvcResult result = mockMvc
-                .perform((get("/getkedheavycount")))
+                .perform((get("/getkedheavycount"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
 
-        assertThat(result.getResponse().getContentAsString()).isEqualTo("10");
+        assertThat(result.getResponse().getContentAsString()).isEqualTo(expectedJson);
 
         verify(kedHeavyRepoManager, times(1)).getKedHeavyCount();
         verifyNoMoreInteractions(kedHeavyRepoManager);
