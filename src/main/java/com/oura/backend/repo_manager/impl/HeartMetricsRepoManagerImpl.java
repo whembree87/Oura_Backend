@@ -1,7 +1,7 @@
 package com.oura.backend.repo_manager.impl;
 
 import com.oura.backend.entity.HeartMetricsEntity;
-import com.oura.backend.model.HeartMetricUpdate;
+import com.oura.backend.model.HeartMetricBloodPressureUpdate;
 import com.oura.backend.repo.IHeartMetricsRepo;
 import com.oura.backend.repo_manager.IHeartMetricsRepoManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class HeartMetricsRepoManagerImpl implements IHeartMetricsRepoManager {
         return heartMetricsRepo.findAll(PageRequest.of(page, size));
     }
     @Override
-    public HeartMetricsEntity updateHeartMetric(HeartMetricUpdate heartMetricUpdate) {
+    public HeartMetricsEntity updateHeartMetricBloodPressure(HeartMetricBloodPressureUpdate heartMetricUpdate) {
         String id = heartMetricUpdate.getId();
 
         HeartMetricsEntity entityToUpdate = heartMetricsRepo.getReferenceById(id);
@@ -36,11 +36,12 @@ public class HeartMetricsRepoManagerImpl implements IHeartMetricsRepoManager {
         }
 
         entityToUpdate.setId(heartMetricUpdate.getId());
-        entityToUpdate.setDate(heartMetricUpdate.getDate());
-        entityToUpdate.setAverageRestingHeartRate(heartMetricUpdate.getAverageRestingHeartRate());
-        entityToUpdate.setLowestRestingHeartRate(heartMetricUpdate.getLowestRestingHeartRate());
-        entityToUpdate.setAverageHrv(heartMetricUpdate.getAverageHrv());
         entityToUpdate.setBloodPressure(heartMetricUpdate.getBloodPressure());
+
+        entityToUpdate.setDate(entityToUpdate.getDate());
+        entityToUpdate.setAverageRestingHeartRate(entityToUpdate.getAverageRestingHeartRate());
+        entityToUpdate.setLowestRestingHeartRate(entityToUpdate.getLowestRestingHeartRate());
+        entityToUpdate.setAverageHrv(entityToUpdate.getAverageHrv());
 
         return heartMetricsRepo.save(entityToUpdate);
     }

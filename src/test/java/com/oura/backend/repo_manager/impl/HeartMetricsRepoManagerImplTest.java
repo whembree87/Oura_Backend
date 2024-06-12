@@ -1,7 +1,7 @@
 package com.oura.backend.repo_manager.impl;
 
 import com.oura.backend.entity.HeartMetricsEntity;
-import com.oura.backend.model.HeartMetricUpdate;
+import com.oura.backend.model.HeartMetricBloodPressureUpdate;
 import com.oura.backend.repo.IHeartMetricsRepo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -103,14 +103,14 @@ public class HeartMetricsRepoManagerImplTest {
     }
 
     @Test
-    public void updateHeartMetricReturnsResultsOfRepoCallWithNoData() {
+    public void updateHeartMetricBloodPressureReturnsResultsOfRepoCallWithNoData() {
         when(heartMetricsRepo.getReferenceById(anyString())).thenReturn(null);
 
-        HeartMetricUpdate entityToSave = HeartMetricUpdate.builder()
+        HeartMetricBloodPressureUpdate entityToSave = HeartMetricBloodPressureUpdate.builder()
                 .id("123")
                 .build();
 
-        HeartMetricsEntity actualEntity = subject.updateHeartMetric(entityToSave);
+        HeartMetricsEntity actualEntity = subject.updateHeartMetricBloodPressure(entityToSave);
 
         assertThat(actualEntity).isEqualTo(null);
 
@@ -118,29 +118,29 @@ public class HeartMetricsRepoManagerImplTest {
         verifyNoMoreInteractions(heartMetricsRepo);
     }
     @Test
-    public void updateHeartMetricUpdatesExistingMetricInDatabase() {
+    public void updateHeartMetricBloodPressureUpdatesExistingMetricInDatabase() {
         HeartMetricsEntity expectedEntity = HeartMetricsEntity.builder()
                 .id("123")
-                .date("Some new date")
+                .bloodPressure("0/0")
                 .build();
 
         HeartMetricsEntity oldEntity = HeartMetricsEntity.builder()
                 .id("123")
-                .date("Some old date")
+                .bloodPressure("10/10")
                 .build();
         HeartMetricsEntity newEntity = HeartMetricsEntity.builder()
                 .id("123")
-                .date("Some new date")
+                .bloodPressure("0/0")
                 .build();
 
         when(heartMetricsRepo.getReferenceById(anyString())).thenReturn(oldEntity);
         when(heartMetricsRepo.save(isA(HeartMetricsEntity.class))).thenReturn(newEntity);
 
-        HeartMetricUpdate entityToSave = HeartMetricUpdate.builder()
+        HeartMetricBloodPressureUpdate entityToSave = HeartMetricBloodPressureUpdate.builder()
                 .id("123")
-                .date("Some new date")
+                .bloodPressure("0/0")
                 .build();
-        HeartMetricsEntity actualEntity = subject.updateHeartMetric(entityToSave);
+        HeartMetricsEntity actualEntity = subject.updateHeartMetricBloodPressure(entityToSave);
 
         assertThat(actualEntity).isEqualTo(expectedEntity);
 

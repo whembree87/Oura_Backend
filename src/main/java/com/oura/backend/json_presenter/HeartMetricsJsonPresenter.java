@@ -17,7 +17,7 @@ public class HeartMetricsJsonPresenter {
     private double averageRestingHeartRate;
     private double lowestRestingHeartRate;
     private int averageHrv;
-    private int bloodPressure;
+    private String bloodPressure;
 
     private static HeartMetricsJsonPresenter from(HeartMetricsEntity entity) {
         return HeartMetricsJsonPresenter.builder()

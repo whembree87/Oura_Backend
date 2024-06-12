@@ -52,7 +52,7 @@ public class MetricsControllerTest {
         double averageRestingHeartRate = 0.0;
         double lowestRestingHeartRate = 0.0;
         int averageHrv = 0;
-        int bloodPressure = 0;
+        String bloodPressure = "0/0";
 
         HeartMetricsEntity mockEntity = HeartMetricsEntity.builder()
                 .id(id)
@@ -94,7 +94,7 @@ public class MetricsControllerTest {
         double averageRestingHeartRate = 0.0;
         double lowestRestingHeartRate = 0.0;
         int averageHrv = 0;
-        int bloodPressure = 0;
+        String bloodPressure = "0/0";
 
         HeartMetricsEntity mockEntity = HeartMetricsEntity.builder()
                 .id(id)
@@ -127,7 +127,7 @@ public class MetricsControllerTest {
         double averageRestingHeartRate = 0.0;
         double lowestRestingHeartRate = 0.0;
         int averageHrv = 0;
-        int bloodPressure = 0;
+        String bloodPressure = "0/0";
 
         HeartMetricsEntity mockEntity = HeartMetricsEntity.builder()
                 .id(id)
@@ -173,7 +173,7 @@ public class MetricsControllerTest {
         double averageRestingHeartRate = 0.0;
         double lowestRestingHeartRate = 0.0;
         int averageHrv = 0;
-        int bloodPressure = 0;
+        String bloodPressure = "0/0";
 
         HeartMetricsEntity mockEntity = HeartMetricsEntity.builder()
                 .id(id)

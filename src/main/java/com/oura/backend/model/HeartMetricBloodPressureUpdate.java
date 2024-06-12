@@ -9,11 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class HeartMetricUpdate {
+public class HeartMetricBloodPressureUpdate {
     String id;
-    String date;
-    double averageRestingHeartRate;
-    double lowestRestingHeartRate;
-    int averageHrv;
-    int bloodPressure;
+    String bloodPressure;
 }

@@ -34,5 +34,5 @@ public class HeartMetricsEntity {
     private int averageHrv;
 
     @Column(name = "blood_pressure")
-    private int bloodPressure;
+    private String bloodPressure;
 }

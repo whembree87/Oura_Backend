@@ -1,7 +1,7 @@
 package com.oura.backend.repo_manager;
 
 import com.oura.backend.entity.HeartMetricsEntity;
-import com.oura.backend.model.HeartMetricUpdate;
+import com.oura.backend.model.HeartMetricBloodPressureUpdate;
 import org.springframework.data.domain.Page;
 
 import java.io.IOException;
@@ -12,5 +12,5 @@ public interface IHeartMetricsRepoManager {
 
     Page<HeartMetricsEntity> getPagedHeartMetrics(int page, int size);
 
-    HeartMetricsEntity updateHeartMetric(HeartMetricUpdate heartMetricUpdate) throws IOException;
+    HeartMetricsEntity updateHeartMetricBloodPressure(HeartMetricBloodPressureUpdate heartMetricBloodPressureUpdate) throws IOException;
 }
