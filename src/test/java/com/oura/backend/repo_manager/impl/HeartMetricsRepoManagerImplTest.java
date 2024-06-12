@@ -108,7 +108,6 @@ public class HeartMetricsRepoManagerImplTest {
 
         HeartMetricUpdate entityToSave = HeartMetricUpdate.builder()
                 .id("123")
-                .date("Some new date")
                 .build();
 
         HeartMetricsEntity actualEntity = subject.updateHeartMetric(entityToSave);
