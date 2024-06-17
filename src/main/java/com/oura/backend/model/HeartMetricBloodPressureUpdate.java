@@ -5,11 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class HeartMetricBloodPressureUpdate {
-    String id;
-    String bloodPressure;
+    private String id;
+    private String bloodPressure;
 }

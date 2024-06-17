@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class HeartMetricsJsonPresenter {
     private int averageHrv;
     private String bloodPressure;
 
-    private static HeartMetricsJsonPresenter from(HeartMetricsEntity entity) {
+    public static HeartMetricsJsonPresenter from(HeartMetricsEntity entity) throws IOException {
         return HeartMetricsJsonPresenter.builder()
                 .id(entity.getId())
                 .date(entity.getDate())
@@ -30,7 +31,7 @@ public class HeartMetricsJsonPresenter {
                 .build();
     }
 
-    public static  List<HeartMetricsJsonPresenter> from(List<HeartMetricsEntity> entities) {
+    public static  List<HeartMetricsJsonPresenter> from(List<HeartMetricsEntity> entities) throws IOException {
         List<HeartMetricsJsonPresenter> list = new ArrayList<>();
 
         for (HeartMetricsEntity entity: entities) {

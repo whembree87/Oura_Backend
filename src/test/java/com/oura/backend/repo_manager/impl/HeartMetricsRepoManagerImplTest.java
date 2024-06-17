@@ -103,7 +103,7 @@ public class HeartMetricsRepoManagerImplTest {
     }
 
     @Test
-    public void updateHeartMetricBloodPressureReturnsResultsOfRepoCallWithNoData() {
+    public void updateHeartMetricBloodPressureReturnsResultsOfRepoCallWithNoData() throws Exception {
         when(heartMetricsRepo.getReferenceById(anyString())).thenReturn(null);
 
         HeartMetricBloodPressureUpdate entityToSave = HeartMetricBloodPressureUpdate.builder()
@@ -118,7 +118,7 @@ public class HeartMetricsRepoManagerImplTest {
         verifyNoMoreInteractions(heartMetricsRepo);
     }
     @Test
-    public void updateHeartMetricBloodPressureUpdatesExistingMetricInDatabase() {
+    public void updateHeartMetricBloodPressureUpdatesExistingMetricInDatabase() throws Exception {
         HeartMetricsEntity expectedEntity = HeartMetricsEntity.builder()
                 .id("123")
                 .bloodPressure("0/0")

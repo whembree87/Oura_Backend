@@ -3,6 +3,7 @@ package com.oura.backend.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oura.backend.entity.HeartMetricsEntity;
 import com.oura.backend.entity.SleepMetricsEntity;
+import com.oura.backend.model.HeartMetricBloodPressureUpdate;
 import com.oura.backend.repo_manager.IHeartMetricsRepoManager;
 import com.oura.backend.repo_manager.ISleepMetricsRepoManager;
 import org.junit.Before;
@@ -23,6 +24,7 @@ import java.util.Collections;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -104,7 +106,7 @@ public class MetricsControllerTest {
                 .averageHrv(averageHrv)
                 .bloodPressure(bloodPressure)
                 .build();
-        String expectedJson = "[{\"id\":\"123\",\"date\":\"2022-07-30 00:00:00\",\"averageRestingHeartRate\":0.0,\"lowestRestingHeartRate\":0.0,\"averageHrv\":0,\"bloodPressure\":0}]";
+        String expectedJson = "[{\"id\":\"123\",\"date\":\"2022-07-30 00:00:00\",\"averageRestingHeartRate\":0.0,\"lowestRestingHeartRate\":0.0,\"averageHrv\":0,\"bloodPressure\":\"0/0\"}]";
 
         when(heartMetricsRepoManager.getHeartMetrics()).thenReturn(Collections.singletonList(mockEntity));
 
@@ -184,7 +186,7 @@ public class MetricsControllerTest {
                 .bloodPressure(bloodPressure)
                 .build();
         Page<HeartMetricsEntity> mockPagedEntity = new PageImpl<>(Collections.singletonList(mockEntity));
-        String expectedJson = "[{\"id\":\"123\",\"date\":\"2022-07-30 00:00:00\",\"averageRestingHeartRate\":0.0,\"lowestRestingHeartRate\":0.0,\"averageHrv\":0,\"bloodPressure\":0}]";
+        String expectedJson = "[{\"id\":\"123\",\"date\":\"2022-07-30 00:00:00\",\"averageRestingHeartRate\":0.0,\"lowestRestingHeartRate\":0.0,\"averageHrv\":0,\"bloodPressure\":\"0/0\"}]";
 
         when(heartMetricsRepoManager.getPagedHeartMetrics(anyInt(), anyInt()))
                 .thenReturn(mockPagedEntity);
@@ -358,5 +360,26 @@ public class MetricsControllerTest {
 
         verify(sleepMetricsRepoManager, times(1)).getSleepMetrics();
         verifyNoMoreInteractions(sleepMetricsRepoManager);
+    }
+
+    @Test
+    public void updateBloodPressureDeserializesTheData() throws Exception {
+        String id = "123";
+        String bloodPressure = "0/0";
+
+        HeartMetricBloodPressureUpdate bloodPressureUpdate = HeartMetricBloodPressureUpdate.builder()
+                .id(id)
+                .bloodPressure(bloodPressure)
+                .build();
+
+        HeartMetricBloodPressureUpdate expectedBloodPressureUpdate = bloodPressureUpdate.toBuilder().build();
+
+        mockMvc.perform(post("/updatebloodpressure")
+                .content(objectMapper.writeValueAsString(bloodPressureUpdate))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+        );
+
+        verify(heartMetricsRepoManager, times(1)).updateHeartMetricBloodPressure(expectedBloodPressureUpdate);
+        verifyNoMoreInteractions(heartMetricsRepoManager);
     }
 }

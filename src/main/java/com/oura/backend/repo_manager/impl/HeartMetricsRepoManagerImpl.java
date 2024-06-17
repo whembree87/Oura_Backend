@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -26,7 +27,7 @@ public class HeartMetricsRepoManagerImpl implements IHeartMetricsRepoManager {
         return heartMetricsRepo.findAll(PageRequest.of(page, size));
     }
     @Override
-    public HeartMetricsEntity updateHeartMetricBloodPressure(HeartMetricBloodPressureUpdate heartMetricUpdate) {
+    public HeartMetricsEntity updateHeartMetricBloodPressure(HeartMetricBloodPressureUpdate heartMetricUpdate) throws IOException {
         String id = heartMetricUpdate.getId();
 
         HeartMetricsEntity entityToUpdate = heartMetricsRepo.getReferenceById(id);
