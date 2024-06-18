@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.io.IOException;
 import java.util.Collections;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -380,6 +381,22 @@ public class MetricsControllerTest {
         );
 
         verify(heartMetricsRepoManager, times(1)).updateHeartMetricBloodPressure(expectedBloodPressureUpdate);
+        verifyNoMoreInteractions(heartMetricsRepoManager);
+    }
+
+    @Test
+    public void updateBloodPressureReturns400IfUnableToProcessUserBloodPressureData() throws Exception {
+        HeartMetricBloodPressureUpdate bloodPressureUpdate = HeartMetricBloodPressureUpdate.builder().build();
+
+        when(heartMetricsRepoManager.updateHeartMetricBloodPressure(any())).thenThrow(new IOException());
+
+        mockMvc.perform(post("/updatebloodpressure")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(bloodPressureUpdate))
+        )
+                .andExpect(status().isBadRequest());
+
+        verify(heartMetricsRepoManager, times(1)).updateHeartMetricBloodPressure(any());
         verifyNoMoreInteractions(heartMetricsRepoManager);
     }
 }

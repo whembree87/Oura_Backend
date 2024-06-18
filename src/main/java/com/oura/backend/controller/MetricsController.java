@@ -63,7 +63,8 @@ public class MetricsController {
         try {
             updateBloodPressure = heartMetricsRepoManager.updateHeartMetricBloodPressure(bloodPressureUpdate);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw new HttpException.HttpBadRequestException();
         }
 
 //        try {

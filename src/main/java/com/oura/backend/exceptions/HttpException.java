@@ -8,4 +8,7 @@ public class HttpException {
     public static class HttpNoContentException extends RuntimeException {}
     @ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY, reason = "Unprocessable Entity")
     public static class HttpUnprocessableEntityException extends RuntimeException {}
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Bad Request")
+    public static class HttpBadRequestException extends RuntimeException {}
 }
