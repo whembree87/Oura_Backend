@@ -67,11 +67,9 @@ public class MetricsController {
             throw new HttpException.HttpBadRequestException();
         }
 
-//        try {
-//            heartMetricsJsonPresenter = HeartMetricsJsonPresenter.from(updateBloodPressure);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        if (updateBloodPressure == null) {
+            throw new HttpException.HttpNoContentException();
+        }
 
         return null;
     }
