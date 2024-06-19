@@ -3,6 +3,7 @@ package com.oura.backend.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oura.backend.entity.HeartMetricsEntity;
 import com.oura.backend.entity.SleepMetricsEntity;
+import com.oura.backend.json_presenter.HeartMetricsJsonPresenter;
 import com.oura.backend.model.HeartMetricBloodPressureUpdate;
 import com.oura.backend.repo_manager.IHeartMetricsRepoManager;
 import com.oura.backend.repo_manager.ISleepMetricsRepoManager;
@@ -413,6 +414,55 @@ public class MetricsControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(heartMetricsRepoManager, times(1)).updateHeartMetricBloodPressure(any());
+        verifyNoMoreInteractions(heartMetricsRepoManager);
+    }
+
+    @Test
+    public void updateBloodPressureReturns200AndEntityOnSuccess() throws Exception {
+        String id = "123";
+        String date = "2022-07-29 00:00:00";
+        double averageRestingHeartRate = 10.0;
+        double lowestRestingHeartRate = 10.0;
+        int averageHrv = 10;
+        String bloodPressure = "100/200";
+
+        HeartMetricsEntity mockEntity = HeartMetricsEntity.builder()
+                .id(id)
+                .date(date)
+                .averageRestingHeartRate(averageRestingHeartRate)
+                .lowestRestingHeartRate(lowestRestingHeartRate)
+                .averageHrv(averageHrv)
+                .bloodPressure(bloodPressure)
+                .build();
+
+        HeartMetricsJsonPresenter expectedResult = HeartMetricsJsonPresenter.builder()
+                .id(id)
+                .date(date)
+                .averageRestingHeartRate(averageRestingHeartRate)
+                .lowestRestingHeartRate(lowestRestingHeartRate)
+                .averageHrv(averageHrv)
+                .bloodPressure(bloodPressure)
+                .build();
+
+        HeartMetricBloodPressureUpdate bloodPressureUpdate = HeartMetricBloodPressureUpdate.builder()
+                .id("123")
+                .bloodPressure("100/200")
+                .build();
+
+        when(heartMetricsRepoManager.updateHeartMetricBloodPressure(any())).thenReturn(mockEntity);
+
+        MvcResult result = mockMvc.perform(post("/updatebloodpressure")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(bloodPressureUpdate))
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        assertThat(result.getResponse().getContentAsString())
+                .isEqualTo(objectMapper.writeValueAsString(expectedResult));
+
+        verify(heartMetricsRepoManager, times(1)).updateHeartMetricBloodPressure(bloodPressureUpdate);
         verifyNoMoreInteractions(heartMetricsRepoManager);
     }
 }

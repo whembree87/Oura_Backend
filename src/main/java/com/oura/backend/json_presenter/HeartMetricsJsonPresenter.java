@@ -20,7 +20,7 @@ public class HeartMetricsJsonPresenter {
     private int averageHrv;
     private String bloodPressure;
 
-    public static HeartMetricsJsonPresenter from(HeartMetricsEntity entity) throws IOException {
+    public static HeartMetricsJsonPresenter from(HeartMetricsEntity entity) {
         return HeartMetricsJsonPresenter.builder()
                 .id(entity.getId())
                 .date(entity.getDate())

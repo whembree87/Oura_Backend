@@ -58,7 +58,6 @@ public class MetricsController {
     @PostMapping(value = "/updatebloodpressure", produces = MediaType.APPLICATION_JSON_VALUE)
     public HeartMetricsJsonPresenter updateBloodPressure(@RequestBody HeartMetricBloodPressureUpdate bloodPressureUpdate) {
         HeartMetricsEntity updateBloodPressure;
-        HeartMetricsJsonPresenter heartMetricsJsonPresenter;
 
         try {
             updateBloodPressure = heartMetricsRepoManager.updateHeartMetricBloodPressure(bloodPressureUpdate);
@@ -71,6 +70,6 @@ public class MetricsController {
             throw new HttpException.HttpNoContentException();
         }
 
-        return null;
+        return HeartMetricsJsonPresenter.from(updateBloodPressure);
     }
 }
