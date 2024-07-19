@@ -17,7 +17,7 @@ public class HeartMetricsJsonPresenter {
     private String date;
     private double averageRestingHeartRate;
     private double lowestRestingHeartRate;
-    private int averageHrv;
+    private double averageHrv;
     private String bloodPressure;
 
     public static HeartMetricsJsonPresenter from(HeartMetricsEntity entity) {

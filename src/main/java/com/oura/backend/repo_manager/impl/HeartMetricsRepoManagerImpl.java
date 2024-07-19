@@ -36,13 +36,7 @@ public class HeartMetricsRepoManagerImpl implements IHeartMetricsRepoManager {
             return null;
         }
 
-        entityToUpdate.setId(heartMetricUpdate.getId());
         entityToUpdate.setBloodPressure(heartMetricUpdate.getBloodPressure());
-
-        entityToUpdate.setDate(entityToUpdate.getDate());
-        entityToUpdate.setAverageRestingHeartRate(entityToUpdate.getAverageRestingHeartRate());
-        entityToUpdate.setLowestRestingHeartRate(entityToUpdate.getLowestRestingHeartRate());
-        entityToUpdate.setAverageHrv(entityToUpdate.getAverageHrv());
 
         return heartMetricsRepo.save(entityToUpdate);
     }

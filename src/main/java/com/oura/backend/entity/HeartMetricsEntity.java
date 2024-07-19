@@ -31,7 +31,7 @@ public class HeartMetricsEntity {
     private double lowestRestingHeartRate;
 
     @Column(name = "average_hrv")
-    private int averageHrv;
+    private double averageHrv;
 
     @Column(name = "blood_pressure")
     private String bloodPressure;
